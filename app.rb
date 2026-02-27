@@ -30,15 +30,32 @@ def generate_joke
     )
     raw_text=response.dig("candidates", 0, "content", "parts", 0, "text")
     cleaned_text=raw_text.gsub(/```json\n/, '').gsub(/\n```/, '')
-    JSON.parse(cleaned_text)
+    joke_data=JSON.parse(cleaned_text)
+    
+    # DBに保存
+    joke=Joke.create(
+        joke: joke_data["joke"],
+        translation: joke_data["translation"],
+        explanation: joke_data["explanation"],
+        key_exp: joke_data["key_exp"]
+    )
+    
+    # Discordに投稿
+    HTTParty.post(
+        ENV['DISCORD_WEBHOOK_URL'],
+        headers: {'Content-Type' => 'application/json'},
+        body: {
+            content: "🃏 今日の英語ジョーク\n\n**#{joke.joke}**\n\n📎 詳細はこちら: http://あなたのURL/jokes/#{joke.id}"
+        }.to_json
+    )
 end
 
 get '/' do
-    joke_data = generate_joke
-    joke_data.to_s
+    @jokes=Joke.all.order(created_at: :desc)
+    erb :index
 end
 
-get '/test' do
-  joke_data = generate_joke
-  joke_data.to_s
+get '/jokes/:id' do
+    @joke=Joke.find(params[:id])
+    erb :joke_show
 end
