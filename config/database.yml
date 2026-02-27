@@ -1,0 +1,10 @@
+default_env: &default
+  adapter: postgresql
+  encoding: unicode
+  database: ld15_day5_count_test
+
+development:
+  <<: *default
+
+production:
+  <<: *default
