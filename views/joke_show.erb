@@ -21,5 +21,9 @@
         
         <h2>キー表現</h2>
         <p><%= @joke.key_exp %></p>
+        
+        <form action="/jokes/<%= @joke.id %>/fav" method="POST">
+            <input type="submit" value="お気に入り登録">
+        </form>
     </body>
 </html>
