@@ -1,7 +1,7 @@
 default_env: &default
   adapter: postgresql
   encoding: unicode
-  database: ld15_day5_count_test
+  database: eigo_joke
 
 development:
   <<: *default
