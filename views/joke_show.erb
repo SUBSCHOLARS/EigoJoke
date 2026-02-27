@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Joke Page</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="icon" href="/img/favicon.ico">
+        <script src="/js/font.js"></script>
+    </head>
+    <body>
+        <a href="/">一覧に戻る</a>
+        <h1><%= @joke.joke %></h1>
+        
+        <h2>日本語訳</h2>
+        <p><%= @joke.translation %></p>
+        
+        <h2>解説</h2>
+        <p><%= @joke.explanation %></p>
+        
+        <h2>キー表現</h2>
+        <p><%= @joke.key_exp %></p>
+    </body>
+</html>
