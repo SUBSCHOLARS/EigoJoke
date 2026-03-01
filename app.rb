@@ -56,10 +56,22 @@ end
 
 post '/jokes/:id/fav' do
     if session[:user]
-        Fav.create(user_id: session[:user], joke_id: params[id])
+        Fav.create(user_id: session[:user], joke_id: params[:id])
         redirect "/jokes/#{params[:id]}"
     else
         session[:return_to]="/jokes/#{params[:id]}"
         redirect '/signin'
     end
+end
+
+get '/users/:id' do
+    @user=User.find(params[:id])
+    @faved_jokes=@user.faved_jokes
+    erb :user_show
+end
+
+get '/users/:id/collection' do
+    @user=User.find(params[:id])
+    @faved_jokes=@user.faved_jokes
+    erb :collection
 end

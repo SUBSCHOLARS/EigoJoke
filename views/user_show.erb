@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>マイページ</title>
+    </head>
+    <body>
+        <a href="/">一覧に戻る</a>
+        <h1><%= @user.name %>のマイページ</h1>
+        
+        <h2>お気に入りジョーク</h2>
+        <% @faved_jokes.each do |joke| %>
+            <p><a href="/jokes/<%= joke.id %>"><%= joke.joke %></a></p>
+        <% end %>
+        
+        <a href="/users/<%= @user.id %>/collection">キー表現コレクションを見る</a>
+    </body>
+</html>
