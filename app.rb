@@ -23,7 +23,24 @@ end
 
 get '/jokes/:id' do
     @joke=Joke.find(params[:id])
+    if session[:user]
+        @answer=Answer.find_by(user_id: session[:user], joke_id: params[:id])
+    end
     erb :joke_show
+end
+
+post '/jokes/:id/answer' do
+    if session[:user]
+        Answer.create(
+            user_id: session[:user],
+            joke_id: params[:id],
+            body: params[:body]
+        )
+        redirect "/jokes/#{params[:id]}"
+    else
+        session[:return_to]="/jokes/#{params[:id]}"
+        redirect '/signin'
+    end
 end
 
 get '/signin' do
@@ -74,4 +91,9 @@ get '/users/:id/collection' do
     @user=User.find(params[:id])
     @faved_jokes=@user.faved_jokes
     erb :collection
+end
+
+get '/signout' do
+    session.clear
+    redirect '/'
 end

@@ -2,31 +2,23 @@
 <html lang="ja" class="sign-html">
   <head>
     <meta charset="UTF-8">
-    <title>Counting Stars Sign-In</title>
+    <title>サインイン</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <div class="sign_form">
-      <div class="card">
-        <div class="title">
-          <h3>EIGO JOKE!</h3>
-        </div>
-        <div>
-          <h3 class="title-sign-in">Sign In</h3>
-        </div>
+    <div class="auth-container">
+        <h3>JOKE EIGO!</h3>
+        <div class="card">
+          <h3 style="text-align: center; margin-bottom: 20px; color: #2d3748;">サインイン</h3>
         <form action="/signin" method="post">
-          <div>
-            <input type="text" name="name" placeholder="username" class="username"></input>
-          </div>
-          <div>
-            <input type="password" name="password" placeholder="password" class="password"></input>
-          </div>
-          <input type="submit" value="SIGN IN" class="button"></input>
-          <div>
-            <p class="footer"><a href="/signup">新規登録はこちら</a></p>
-          </div>
+            <input type="text" name="name" placeholder="username" class="username" placeholder="ユーザーネーム">
+            <input type="password" name="password" placeholder="password" class="password" placeholder="パスワード">
+            <input type="submit" value="SIGN IN" class="btn">
         </form>
-      </div>
+        </div>
+          <p class="auth-footer"><a href="/signup">アカウントをお持ちでない方はこちら</a></p>
     </div>
   </body>
 </html>

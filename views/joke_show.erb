@@ -6,24 +6,62 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Joke Page</title>
         <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
         <link rel="icon" href="/img/favicon.ico">
         <script src="/js/font.js"></script>
     </head>
     <body>
-        <a href="/">一覧に戻る</a>
-        <h1><%= @joke.joke %></h1>
+        <header>
+        <h1>JokeEigo</h1>
+            <% if session[:user] %>
+                <a href="/users/<%= session[:user] %>">マイページ</a>
+            <% else %>
+                <a href="/signin">サインイン</a>
+            <% end %>
+        </header>
         
-        <h2>日本語訳</h2>
-        <p><%= @joke.translation %></p>
+        <div class="container">
+            <a href="/" style="font-size: 14px;">一覧に戻る</a>
+            
+            <div class="card" style="margin-top: 16px;">
+                <p style="font-size: 18px; font-weight: bold; line-height: 1.8;"><%= @joke.joke %></p>
+                <form action="/jokes/<%= @joke.id %>/fav" method="POST" style="margin-top: 12px;">
+                    <input type="submit" value="⭐ お気に入り登録" class="btn btn-outline" style="width: auto; padding: 6px 16px; font-size: 13px;">
+                </form>
+            </div>
         
-        <h2>解説</h2>
-        <p><%= @joke.explanation %></p>
+            <div class="card">
+                <h2>日本語訳</h2>
+                <p><%= @joke.translation %></p>
+            </div>
         
-        <h2>キー表現</h2>
-        <p><%= @joke.key_exp %></p>
+            <div class="card">
+                <h2>💡 解説</h2>
+                <p><%= @joke.explanation %></p>
+            </div>
         
-        <form action="/jokes/<%= @joke.id %>/fav" method="POST">
-            <input type="submit" value="お気に入り登録">
-        </form>
+            <div class="card">
+                <h2>🔑 キー表現</h2>
+                <p><%= @joke.key_exp %></p>
+            </div>
+        
+            <div class="card">
+                <h2>✏️ 日本語訳に挑戦</h2>
+                <% if session[:user] %>
+                    <form action="/jokes/<%= @joke.id %>/answer" method="POST">
+                        <textarea name="body" placeholder="日本語訳を入力してください"></textarea>
+                        <input type="submit" value="提出" class="btn">
+                    </form>
+                <% if @answer %>
+                    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
+                        <p style="font-size: 13px; color: #718096;">あなたの訳</p>
+                        <p style="margin-top: 4px;"><%= @answer.body %></p>
+                    </div>
+                <% end %>
+                <% else %>
+                    <a href="/signin" class="btn">サインインして挑戦する</a>
+                <% end %>
+            </div>
+        </div>
     </body>
 </html>

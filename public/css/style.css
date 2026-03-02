@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f0f4f8;
+    color: #2d3748;
+    min-height: 100vh;
+}
+
+/* ヘッダー */
+header {
+    background-color: #2b6cb0;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    color: white;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* メインコンテンツ */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 16px;
+}
+
+/* カード */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    font-size: 16px;
+    color: #2b6cb0;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.btn:hover {
+    background-color: #2c5282;
+}
+
+.btn-outline {
+    background-color: white;
+    color: #2b6cb0;
+    border: 2px solid #2b6cb0;
+}
+
+.btn-outline:hover {
+    background-color: #ebf8ff;
+}
+
+/* フォーム */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 12px;
+    background: #f7fafc;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    background: white;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* リンク */
+a {
+    color: #2b6cb0;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* サインイン・サインアップページ */
+.auth-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 0 16px;
+}
+
+.auth-container h2 {
+    text-align: center;
+    color: #2b6cb0;
+    margin-bottom: 24px;
+    font-size: 24px;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+}

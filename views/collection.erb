@@ -2,18 +2,32 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
         <title>コレクション</title>
     </head>
     <body>
-        <a href="/users/<%= @user.id %>">マイページに戻る</a>
-        <h1>キー表現コレクション</h1>
+        <header>
+            <h1>JokeEigo!</h1>
+            <a href="/users/<%= @user.id %>">マイページ</a>
+        </header>
         
-        <% @faved_jokes.each do |joke| %>
-        <div>
-            <h2><%= joke.key_exp %></h2>
-            <p><a href="/jokes/<%= joke.id %>">元のジョークを見る</a></p>
+        <div class="container">
+            <h2 style="margin-bottom: 16px;">キー表現コレクション</h2>
+        
+            <% @faved_jokes.each do |joke| %>
+            <div class="card">
+                <h2><%= joke.key_exp %></h2>
+                <a href="/jokes/<%= joke.id %>" class="btn btn-outline">元のジョークを見る</a>
+            </div>
+        <% end %>
+        
+        <% if @faved_jokes.empty? %>
+        <div class="card">
+            <p>まだコレクションがありません。ジョークをお気に入り登録するとキー表現が蓄積されます。</p>
         </div>
         <% end %>
+        </div>
     </body>
 </html>
