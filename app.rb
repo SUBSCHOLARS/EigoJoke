@@ -87,9 +87,9 @@ get '/users/:id' do
     erb :user_show
 end
 
-get '/users/:id/collection' do
-    @user=User.find(params[:id])
-    @faved_jokes=@user.faved_jokes
+get '/users/:user_id/collection/:joke_id' do
+    @user=User.find(params[:user_id])
+    @faved_joke=Joke.find(params[:joke_id])
     erb :collection
 end
 

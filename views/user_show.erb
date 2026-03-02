@@ -23,8 +23,6 @@
     <div class="container">
         <div class="card">
             <h2><%= @user.name %>のマイページ</h2>
-            <a href="/users/<%= @user.id %>/collection" class="btn" style="margin-top: 12px;">🔑 キー表現コレクションを見る</a>
-            <a href="/signout" class="btn btn-outline" style="margin-top: 8px;">サインアウト</a>
         </div>
 
         <h2 style="margin-bottom: 12px;">⭐ お気に入りジョーク</h2>
@@ -36,7 +34,7 @@
         <% else %>
             <% @faved_jokes.each do |joke| %>
             <div class="card">
-                <a href="/jokes/<%= joke.id %>">
+                <a href="/users/<%= session[:user] %>/collection/<%= joke.id %>">
                     <p><%= joke.joke %></p>
                     <small style="color: #718096; margin-top: 8px; display: block;"><%= joke.created_at.strftime('%Y年%m月%d日') %></small>
                 </a>

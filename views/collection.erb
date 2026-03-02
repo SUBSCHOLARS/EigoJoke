@@ -20,16 +20,13 @@
         </header>
         
         <div class="container">
-            <h2 style="margin-bottom: 16px;">キー表現コレクション</h2>
+        <h2 style="margin-bottom: 16px;">キー表現コレクション</h2>
+        <div class="card">
+            <h2><%= @faved_joke.key_exp %></h2>
+            <a href="/jokes/<%= @faved_joke.id %>" class="btn btn-outline">元のジョークを見る</a>
+        </div>
         
-            <% @faved_jokes.each do |joke| %>
-            <div class="card">
-                <h2><%= joke.key_exp %></h2>
-                <a href="/jokes/<%= joke.id %>" class="btn btn-outline">元のジョークを見る</a>
-            </div>
-        <% end %>
-        
-        <% if @faved_jokes.empty? %>
+        <% if @faved_joke.empty? %>
         <div class="card">
             <p>まだコレクションがありません。ジョークをお気に入り登録するとキー表現が蓄積されます。</p>
         </div>
