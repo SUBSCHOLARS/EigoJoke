@@ -14,9 +14,11 @@
         <header>
         <h1>JokeEigo</h1>
             <% if session[:user] %>
-                <a href="/users/<%= session[:user] %>">マイページ</a>
+                <p style="color: white;"><a href="/users/<%= session[:user] %>"><%= User.find(session[:user]).name %></a></p>
+                <a href="/signout">サインアウト</a>
             <% else %>
                 <a href="/signin">サインイン</a>
+                <a href="/signin">サインアップ</a>
             <% end %>
         </header>
         
