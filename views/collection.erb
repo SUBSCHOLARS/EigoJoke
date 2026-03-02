@@ -26,7 +26,7 @@
             <a href="/jokes/<%= @faved_joke.id %>" class="btn btn-outline">元のジョークを見る</a>
         </div>
         
-        <% if @faved_joke.empty? %>
+        <% if !@faved_joke %>
         <div class="card">
             <p>まだコレクションがありません。ジョークをお気に入り登録するとキー表現が蓄積されます。</p>
         </div>
