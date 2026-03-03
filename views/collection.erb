@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/collection.css">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+        <script src="/js/collection.js" defer></script>
         <title>コレクション</title>
     </head>
     <body>
@@ -20,17 +22,49 @@
         </header>
         
         <div class="container">
-        <h2 style="margin-bottom: 16px;">キー表現コレクション</h2>
-        <div class="card">
-            <h2><%= @faved_joke.key_exp %></h2>
-            <a href="/jokes/<%= @faved_joke.id %>" class="btn btn-outline">元のジョークを見る</a>
+        <h2 style="text-align: center; margin-bottom: 8px;">キー表現コレクション</h2>
+        <p style="text-align: center; font-size: 13px; color: #718096; margin-bottom: 24px;">カードをタップして意味を確認</p>
+
+        <div class="flip-container" onclick="flipCard()">
+            <div class="flipper" id="flipper">
+                <div class="front">
+                    <p style="font-size: 22px; font-weight: bold; color: #2b6cb0; text-align: center;">
+                        <%= @current_joke.key_exp %>
+                    </p>
+                    <p style="font-size: 13px; color: #718096; margin-top: 16px;">タップして確認</p>
+                </div>
+                <div class="back">
+                    <p style="font-size: 18px; font-weight: bold; color: #2b6cb0; text-align: center; margin-bottom: 12px;">
+                        <%= @current_joke.key_exp %>
+                    </p>
+                    <p style="font-size: 15px; text-align: center; margin-bottom: 16px;">
+                        <%= @current_joke.translation %>
+                    </p>
+                    <a href="/jokes/<%= @current_joke.id %>" style="font-size: 13px;">元のジョークを見る →</a>
+                </div>
+            </div>
         </div>
-        
-        <% if !@faved_joke %>
-        <div class="card">
-            <p>まだコレクションがありません。ジョークをお気に入り登録するとキー表現が蓄積されます。</p>
+
+        <div class="nav-buttons">
+            <% if @prev_joke %>
+                <a href="/users/<%= @user.id %>/collection/<%= @prev_joke.id %>">
+                    <button class="nav-btn">‹</button>
+                </a>
+            <% else %>
+                <button class="nav-btn" disabled>‹</button>
+            <% end %>
+
+            <span class="counter"><%= @current_index + 1 %> / <%= @faved_jokes.length %></span>
+
+            <% if @next_joke %>
+                <a href="/users/<%= @user.id %>/collection/<%= @next_joke.id %>">
+                    <button class="nav-btn">›</button>
+                </a>
+            <% else %>
+                <button class="nav-btn" disabled>›</button>
+            <% end %>
         </div>
-        <% end %>
-        </div>
+    </div>
+
     </body>
 </html>

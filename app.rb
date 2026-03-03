@@ -73,7 +73,10 @@ end
 
 post '/jokes/:id/fav' do
     if session[:user]
-        Fav.create(user_id: session[:user], joke_id: params[:id])
+        existing = Fav.find_by(user_id: session[:user], joke_id: params[:id])
+        unless existing
+            Fav.create(user_id: session[:user], joke_id: params[:id])
+        end
         redirect "/jokes/#{params[:id]}"
     else
         session[:return_to]="/jokes/#{params[:id]}"
@@ -89,7 +92,11 @@ end
 
 get '/users/:user_id/collection/:joke_id' do
     @user=User.find(params[:user_id])
-    @faved_joke=Joke.find(params[:joke_id])
+    @faved_jokes=@user.faved_jokes.distinct
+    @current_joke=Joke.find(params[:joke_id])
+    @current_index=@faved_jokes.index(@current_joke)
+    @prev_joke=@faved_jokes[@current_index-1] if @current_index > 0
+    @next_joke=@faved_jokes[@current_index+1] if @current_index < @faved_jokes.length - 1
     erb :collection
 end
 
