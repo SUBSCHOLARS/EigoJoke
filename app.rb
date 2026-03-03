@@ -16,6 +16,27 @@ before do
     Dotenv.load
 end
 
+def score_answer(joke, user_answer)
+    response=HTTParty.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => "Bearer #{ENV['GROQ_API_KEY']}"
+        },
+        body: {
+            model: "llama-3.3-70b-versatile",
+            messages: [{
+                role: "user",
+                content: "英語ジョーク: \"\n模範訳: \"#{joke.translation}\"\nユーザーの訳: \"#{user_answer}\"\n\n上記を元にユーザーの訳を100点満点で採点し、以下のJSON形式のみで返してください。\n{\"score\": 85, \"comment\": \"採点コメント\"}"
+            }],
+            temperature: 0.3
+        }.to_json
+    )
+    raw_text=response.dig("choices", 0, "message", "content")
+    cleaned_text=raw_text.gsub(/```json\n/, '').gsub(/\n```/, '')
+    JSON.parse(cleaned_text)
+end
+
 get '/' do
     @jokes=Joke.all.order(created_at: :desc)
     erb :index
