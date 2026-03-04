@@ -33,22 +33,26 @@
             </div>
         
             <div class="card">
-                <h2>日本語訳</h2>
-                <p><%= @joke.translation %></p>
+                <button class="btn btn-outline" onclick="toggleSection('translation-section')" style="width: auto; padding: 8px 20px;">
+                    訳・解説を見る
+                </button>
+                <div id="translation-section" class="hidden" style="margin-top: 16px;">
+                    <h2 style="margin-bottom: 8px;">日本語訳</h2>
+                    <p><%= @joke.translation %></p>
+
+                    <h2 style="margin-top: 16px; margin-bottom: 8px;">💡 解説</h2>
+                    <p><%= @joke.explanation %></p>
+
+                    <h2 style="margin-top: 16px; margin-bottom: 8px;">🔑 キー表現</h2>
+                    <p><%= @joke.key_exp %></p>
+                </div>
             </div>
         
             <div class="card">
-                <h2>💡 解説</h2>
-                <p><%= @joke.explanation %></p>
-            </div>
-        
-            <div class="card">
-                <h2>🔑 キー表現</h2>
-                <p><%= @joke.key_exp %></p>
-            </div>
-        
-            <div class="card">
-                <h2>✏️ 日本語訳に挑戦</h2>
+                <button class="btn" onclick="toggleSection('answer-section')" style="width: auto; padding: 8px 20px;">
+                    ✏️ 日本語訳に挑戦する
+                </button>
+                <div id="answer-section" class="hidden" style="margin-top: 16px;">
                 <% if session[:user] %>
                     <form action="/jokes/<%= @joke.id %>/answer" method="POST">
                         <textarea name="body" placeholder="日本語訳を入力してください"></textarea>
@@ -69,7 +73,9 @@
                 <% else %>
                     <a href="/signin" class="btn">サインインして挑戦する</a>
                 <% end %>
+                </div>
             </div>
         </div>
+        <script src="/js/joke_show.js"></script>
     </body>
 </html>
