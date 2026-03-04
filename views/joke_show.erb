@@ -58,6 +58,12 @@
                     <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
                         <p style="font-size: 13px; color: #718096;">あなたの訳</p>
                         <p style="margin-top: 4px;"><%= @answer.body %></p>
+                        <p style="margin-top: 8px; font-size: 20px; font-weight: bold; color: #2b6cb0;">
+                            <%= @answer.score %>点
+                        </p>
+                        <p style="margin-top: 4px; font-size: 14px; color: #4a5568;">
+                            <%= @answer.comment %>
+                        </p>
                     </div>
                 <% end %>
                 <% else %>

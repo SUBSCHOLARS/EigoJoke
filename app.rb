@@ -52,10 +52,14 @@ end
 
 post '/jokes/:id/answer' do
     if session[:user]
-        Answer.create(
-            user_id: session[:user],
-            joke_id: params[:id],
-            body: params[:body]
+        joke=Joke.find(params[:id])
+        result=score_answer(joke, params[:body])
+        
+        answer=Answer.find_or_initialize_by(user_id: session[:user], joke_id: params[:id])
+        answer.update(
+            body: params[:body],
+            score: result["score"],
+            comment: result["comment"]
         )
         redirect "/jokes/#{params[:id]}"
     else
