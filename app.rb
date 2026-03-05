@@ -10,7 +10,15 @@ require 'json'
 
 require 'cloudinary'
 
+require 'rufus-scheduler'
+
+scheduler = Rufus::Scheduler.new
+
 enable :sessions
+
+scheduler.every '2m' do
+    load './generate.rb'
+end
 
 before do
     Dotenv.load
