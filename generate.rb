@@ -18,9 +18,11 @@ joke_data_raw = HTTParty.post(
         model: "llama-3.3-70b-versatile",
         messages: [{
             role: "user",
-            content: "#{theme}に関連した英語のジョークを1つ作成してください。以下のJSON形式のみで返してください。key_expは英語の表現・イディオムのみを記載し、日本語や解説は含めないでください。\n{\"joke\": \"英語のジョーク本文\", \"translation\": \"日本語訳\", \"explanation\": \"解説\", \"key_exp\": \"キーとなる英語表現\"}"
+            content: "#{theme}に関連した英語のジョークを1つ作成してください。以下のJSON形式のみで返してください。
+            ジョークには言葉遊び（pun）やダブルミーニングが含まれていて構いません。暴力的・性的な表現でない限り、犯罪用語もジョークの文脈で使用可能です。
+            key_expは英語の表現・イディオムのみを記載し、日本語や解説は含めないでください。\n{\"joke\": \"英語のジョーク本文\", \"translation\": \"日本語訳\", \"explanation\": \"解説\", \"key_exp\": \"キーとなる英語表現\"}"
         }],
-        temperature: 0.7
+        temperature: 1.0
     }.to_json
 )
 
