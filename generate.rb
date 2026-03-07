@@ -20,8 +20,8 @@ joke_data_raw = HTTParty.post(
         model: "llama-3.3-70b-versatile",
         messages: [{
             role: "user",
-            content: "#{theme}に関連した英語のジョークを1つ作成してください。以下のJSON形式のみで返してください。\n\n以下のジョークはすでに使用済みなので、全く異なるジョークを作成してください。\n#{recent_jokes}\n\n
-            ジョークには言葉遊び（pun）やダブルミーニングが含まれていて構いません。暴力的・性的な表現でない限り、犯罪用語もジョークの文脈で使用可能です。
+            content: "英語のジョークを1つ作成してください。以下のJSON形式のみで返してください。\n\n以下のジョークはすでに使用済みなので、全く異なるジョークを作成してください。\n#{recent_jokes}\n\n
+            ジョークには言葉遊び（pun）やダブルミーニング、スラングなどのフランクな表現が含まれていて構いません。暴力的・性的な表現でない限り、犯罪用語もジョークの文脈で使用可能です。
             key_expは英語の表現・イディオムのみを記載し、日本語や解説は含めないでください。\n{\"joke\": \"英語のジョーク本文\", \"translation\": \"日本語訳\", \"explanation\": \"解説\", \"key_exp\": \"キーとなる英語表現\"}"
         }],
         temperature: 1.0
@@ -43,6 +43,6 @@ HTTParty.post(
     ENV['DISCORD_WEBHOOK_URL'],
     headers: {'Content-Type' => 'application/json'},
     body: {
-        content: "🃏 今日の英語ジョーク\n\n**#{joke.joke}**\n\n📎 詳細はこちら: https://d2onb7kenm5yn0.cloudfront.net/jokes/#{joke.id}"
+        content: "🃏 今日の英語ジョーク\n\n**#{joke.joke}**\n\n📎 詳細はこちら: #{ENV['APP_URL']}/jokes/#{joke.id}"
     }.to_json
 )

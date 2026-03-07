@@ -25,6 +25,10 @@ get '/admin/generate' do
     "ジョーク生成完了"
 end
 
+get '/admin/env' do
+    "APP_URL: #{ENV['APP_URL']}"
+end
+
 before do
     Dotenv.load
 end
