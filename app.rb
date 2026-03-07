@@ -16,8 +16,13 @@ scheduler = Rufus::Scheduler.new
 
 enable :sessions
 
-scheduler.every '2m' do
+scheduler.cron '0 9 * * *', timezone: 'Asia/Tokyo' do
     load './generate.rb'
+end
+
+get '/admin/generate' do
+    load './generate.rb'
+    "ジョーク生成完了"
 end
 
 before do
