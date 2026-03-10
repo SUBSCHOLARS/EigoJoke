@@ -25,8 +25,15 @@ get '/admin/generate' do
     "ジョーク生成完了"
 end
 
-get '/admin/env' do
-    "APP_URL: #{ENV['APP_URL']}"
+# 管理者がデプロイ後に一度だけアクセスするURL
+get '/admin/setup-url' do
+  # アクセスされた時のベースURL（例: https://d3t7...cloudfront.net）を取得
+  base_url = request.base_url.chomp('/')
+  
+  # プロジェクト直下の app_url.txt に保存する
+  File.write('./app_url.txt', base_url)
+  
+  "URLを登録しました: #{base_url}"
 end
 
 before do

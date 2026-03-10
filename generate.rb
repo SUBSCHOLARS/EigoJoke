@@ -5,8 +5,19 @@ require 'httparty'
 require 'json'
 require './models'
 
-themes = ["テクノロジー", "SNS", "リモートワーク", "サブスク", "AI", "ゲーム", "カフェ", "通勤", "天気", "食べ物", "スポーツ", "映画", "音楽", "旅行", "ペット"]
-theme = themes.sample
+# --- URL取得部分 ---
+begin
+  # 保存されたファイルがあるか確認
+  if File.exist?('./app_url.txt')
+    app_url = File.read('./app_url.txt').strip
+  else
+    # ファイルがない場合はエラーにするか、あるいは前回のCloudFront URLを
+    # 最後の手段として書いておく（念のため）
+    app_url = "https://d3t7yrnoci2ji2.cloudfront.net" 
+  end
+rescue => e
+  app_url = "https://d3t7yrnoci2ji2.cloudfront.net"
+end
 
 recent_jokes = Joke.order(created_at: :desc).limit(10).pluck(:joke).join("\n")
 
@@ -43,6 +54,6 @@ HTTParty.post(
     ENV['DISCORD_WEBHOOK_URL'],
     headers: {'Content-Type' => 'application/json'},
     body: {
-        content: "🃏 今日の英語ジョーク\n\n**#{joke.joke}**\n\n📎 詳細はこちら: #{ENV['APP_URL']}/jokes/#{joke.id}"
+        content: "🃏 今日の英語ジョーク\n\n**#{joke.joke}**\n\n📎 詳細はこちら: #{app_url}/jokes/#{joke.id}"
     }.to_json
 )
