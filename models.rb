@@ -28,6 +28,8 @@ class User < ApplicationRecord
     
     has_many :answers
     has_many :user_answers, through: :answers, source: :joke
+    
+    has_many :webhooks
 end
 
 class Fav < ApplicationRecord
@@ -39,4 +41,10 @@ end
 class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :joke
+end
+
+class Webhook < ApplicationRecord
+    belongs_to :user
+    validates :url, presence: true
+    validates :name, presence: true
 end

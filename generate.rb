@@ -50,10 +50,12 @@ joke = Joke.create(
     key_exp: joke_data["key_exp"]
 )
 
+Webhook.all.each do |webhook|
 HTTParty.post(
-    ENV['DISCORD_WEBHOOK_URL'],
+    webhook.url,
     headers: {'Content-Type' => 'application/json'},
     body: {
         content: "🃏 今日の英語ジョーク\n\n**#{joke.joke}**\n\n📎 詳細はこちら: #{app_url}/jokes/#{joke.id}"
     }.to_json
 )
+end

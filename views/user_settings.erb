@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>設定</title>
+</head>
+<body>
+    <header>
+        <h1>JokeEigo</h1>
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <a href="/users/<%= @user.id %>">マイページ</a>
+            <a href="/signout">サインアウト</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Discord Webhook設定</h2>
+            <p style="font-size: 13px; color: #718096; margin: 8px 0 16px;">
+                追加したチャンネルに毎朝9時にジョークが届きます。
+            </p>
+
+            <% if @webhooks.any? %>
+                <% @webhooks.each do |webhook| %>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f7fafc; border-radius: 8px; margin-bottom: 8px;">
+                    <div>
+                        <p style="font-weight: bold;"><%= webhook.name %></p>
+                        <small style="color: #718096;"><%= webhook.url %></small>
+                    </div>
+                    <form action="/users/<%= @user.id %>/webhooks/<%= webhook.id %>/delete" method="post">
+                        <input type="submit" value="削除" class="btn btn-outline" style="width: auto; padding: 4px 12px; font-size: 13px; color: #e53e3e; border-color: #e53e3e;">
+                    </form>
+                </div>
+                <% end %>
+            <% else %>
+                <p style="color: #718096; font-size: 14px;">まだWebhookが登録されていません。</p>
+            <% end %>
+
+            <h3 style="margin-top: 20px; margin-bottom: 12px;">新しいWebhookを追加</h3>
+            <form action="/users/<%= @user.id %>/webhooks" method="post">
+                <input type="text" name="name" placeholder="チャンネル名（例: 英語学習サーバー）">
+                <input type="text" name="url" placeholder="https://discord.com/api/webhooks/...">
+                <input type="submit" value="追加する" class="btn">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

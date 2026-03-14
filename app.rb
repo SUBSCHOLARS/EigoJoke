@@ -155,3 +155,24 @@ get '/signout' do
     session.clear
     redirect '/'
 end
+
+get '/users/:id/settings' do
+    @user = User.find(params[:id])
+    @webhooks = @user.webhooks
+    erb :user_settings
+end
+
+post '/users/:id/webhooks' do
+    user = User.find(params[:id])
+    user.webhooks.create(
+        name: params[:name],
+        url: params[:url]
+    )
+    redirect "/users/#{params[:id]}/settings"
+end
+
+post '/users/:id/webhooks/:webhook_id/delete' do
+    webhook = Webhook.find(params[:webhook_id])
+    webhook.destroy
+    redirect "/users/#{params[:id]}/settings"
+end

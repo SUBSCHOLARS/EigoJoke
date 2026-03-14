@@ -25,6 +25,7 @@
     <div class="container">
         <div class="card">
             <h2><%= @user.name %>のマイページ</h2>
+            <a href="/users/<%= @user.id %>/settings" class="btn btn-outline" style="margin-top: 8px;">⚙️ Webhook設定</a>
         </div>
 
         <h2 style="margin-bottom: 12px;">⭐ お気に入りジョーク</h2>
@@ -34,9 +35,6 @@
             <p>まだお気に入りがありません。気に入ったジョークを保存してみましょう。</p>
         </div>
         <% else %>
-        
-        
-        
             <% @faved_jokes.each do |joke| %>
             <div class="card">
                 <a href="/users/<%= session[:user] %>/collection/<%= joke.id %>">
