@@ -13,6 +13,13 @@
         <h2>JokeEigo</h2>
         <div class="card">
             <h3 style="text-align: center; margin-bottom: 20px; color: #2d3748;">新規登録</h3>
+            <% if session[:errors] %>
+              <div style="background: #fff5f5; border: 1px solid #fc8181; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <% session.delete(:errors).each do |error| %>
+              <p style="color: #c53030; font-size: 14px;">・<%= error %></p>
+            <% end %>
+            </div>
+            <% end %>
             <form action="/signup" method="post">
                 <input type="text" name="name" placeholder="ユーザー名">
                 <input type="email" name="email" placeholder="メールアドレス">

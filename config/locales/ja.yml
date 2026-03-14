@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: ユーザー名
+        password: パスワード
+        email: メールアドレス
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: を入力してください
+              taken: はすでに使用されています
+            password:
+              blank: を入力してください
+              invalid: は英字と数字を両方含めてください

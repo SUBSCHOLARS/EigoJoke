@@ -3,6 +3,9 @@ Bundler.require
 
 ActiveRecord::Base.establish_connection
 
+I18n.load_path << Dir[File.join(File.dirname(__FILE__), 'config', 'locales', '*.yml')]
+I18n.default_locale = :ja
+
 class ApplicationRecord < ActiveRecord::Base
     self.abstract_class=true
 end
@@ -18,7 +21,7 @@ end
 class User < ApplicationRecord
     has_secure_password
     validates :name, presence: true, uniqueness: true
-    validates :password, presence: true, format: { with: /\A(?=.*?[A-Za-z])(?=.*?\d)[A-Za-z\d]+\z/i}
+    validates :password, presence: true, format: { with: /\A(?=.*?[A-Za-z])(?=.*?\d)[A-Za-z\d]+\z/i }
     
     has_many :favs
     has_many :faved_jokes, through: :favs, source: :joke

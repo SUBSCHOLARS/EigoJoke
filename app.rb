@@ -116,6 +116,7 @@ post '/signup' do
     if @user.persisted?
         redirect '/signin'
     else
+        session[:errors]=@user.errors.full_messages
         redirect '/signup'
     end
 end
