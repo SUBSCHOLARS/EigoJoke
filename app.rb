@@ -69,7 +69,7 @@ end
 get '/jokes/:id' do
     @joke=Joke.find(params[:id])
     if session[:user]
-        @answer=Answer.find_by(user_id: session[:user], joke_id: params[:id])
+        @answers=Answer.where(user_id: session[:user], joke_id: params[:id]).order(created_at: :desc)
     end
     erb :joke_show
 end
@@ -79,8 +79,9 @@ post '/jokes/:id/answer' do
         joke=Joke.find(params[:id])
         result=score_answer(joke, params[:body])
         
-        answer=Answer.find_or_initialize_by(user_id: session[:user], joke_id: params[:id])
-        answer.update(
+        Answer.create(
+            user_id: session[:user], 
+            joke_id: params[:id],
             body: params[:body],
             score: result["score"],
             comment: result["comment"]
